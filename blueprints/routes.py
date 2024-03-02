@@ -7,7 +7,7 @@ auth_blueprint = Blueprint("auth_blueprint", __name__)
 # Main page
 @main_blueprint.route("/")
 def index():
-    return "Index"
+    return render_template("index.html")
 
 @main_blueprint.route("/profile")
 def profile():
@@ -16,10 +16,10 @@ def profile():
 # Signup page
 @auth_blueprint.route("/signup")
 def signup():
-    return "Signup"
+    return render_template("signup.html")
 
 # Login page
 @auth_blueprint.route("/login")
 def login():
-    return "Login"
+    return render_template("login.html")
 
