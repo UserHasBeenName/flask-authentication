@@ -2,12 +2,19 @@ from flask import Flask, g
 from secrets import token_urlsafe
 
 from blueprints.routes import main_blueprint, auth_blueprint
-
+from database.database import open_db
 app = Flask(__name__)
+
+# Build the schema if it does not already exist
+def build_schema():
+    with open("database/schema.sql", "r") as file, app.app_context():
+        open_db().executescript(file.read())
+        
+build_schema()
 
 # Tell the application to close the database after context is popped
 @app.teardown_appcontext
-def close_db(*kwargs):
+def close_db(*kwargs) -> None:
     # Find DB
     db = getattr(g, "_database", None)
     if db is not None:
