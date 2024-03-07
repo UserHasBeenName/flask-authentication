@@ -4,11 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INDEX</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
 </head>
 <body>
-    <h1>INDEX</h1>
-
-    <a href="/signup">Sign up</a>
-    <a href="/login">Log In</a>
+    <main>
+        <hgroup>
+            <h1>INDEX</h1>
+            <p>Please log in below</p>
+        </hgroup>
+        <nav>
+            <ul>
+              <li>
+                <details class="dropdown">
+                  <summary role="button" class="secondary">Theme</summary>
+                  <ul>
+                    <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                    <li><a href="#" data-theme-switcher="light">Light</a></li>
+                    <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </nav>
+        <article>
+            <header>INDEX</header>
+            <a href="/signup">Sign up</a>
+            <a href="/login">Log In</a>
+        </article>
+    </main>
 </body>
 </html>
