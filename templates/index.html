@@ -2,34 +2,35 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=0" />
 	<meta name="color-scheme" content="light dark" />
-	<title>Class-less preview • Pico CSS</title>
+	<title>Index</title>
 	<meta name="description" content="A class-less example, without dependencies." />
 
 	<!-- Pico.css -->
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.classless.min.css"
+		href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.red.min.css"
 	/>
 </head>
 <body>
-	<main>
+	<header class="container">
 		<hgroup>
 			<h1>INDEX</h1>
 			<p>Please log in below</p>
-			<nav>
-				<ul>
-					<li><a href="#" data-theme-switcher="auto">Auto</a></li>
-					<li><a href="#" data-theme-switcher="light">Light</a></li>
-					<li><a href="#" data-theme-switcher="dark">Dark</a></li>
-				</ul>
-			</nav>
-		<article>
-			<header>INDEX</header>
-			<a href="/signup">Sign up</a> <br>
-			<a href="/login">Log In</a>
-		</article>
+		</hgroup>
+	</header>
+	<main class="container">
+		<nav>
+			<div class="grid">
+				<article>
+					<ul>
+						<li><a href="/signup">Sign up</a></li>
+						<li><a href="/login">Log In</a></li>
+					</ul>
+				</article>
+			</div>
+		</nav>
 	</main>
 </body>
 </html>

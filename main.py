@@ -1,15 +1,20 @@
-from flask import Flask, g
+from flask import Flask, g, send_from_directory
 from secrets import token_urlsafe
 
 from blueprints.routes import main_blueprint, auth_blueprint
 from database.database import open_db
+
 app = Flask(__name__)
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory("static", "favicon.ico")
 
 # Build the schema if it does not already exist
 def build_schema():
     with open("database/schema.sql", "r") as file, app.app_context():
         open_db().executescript(file.read())
-        
+
 build_schema()
 
 # Tell the application to close the database after context is popped

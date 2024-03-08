@@ -3,19 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Log In</title>
+
+    <!-- Pico.css -->
+	<link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.red.min.css"
+    />
 </head>
 <body>
-    <h1>LOGIN</h1>
-    {{ form.csrf_token }}
-    <form action="login/submit", method="post">
-        {{ form.username.label }}
-        {{ form.username }}
-
-        {{ form.password.label }}
-        {{ form.password }}
-
-        {{ form.submit }}
-    </form>
+    <header class="container">
+        <hgroup>
+            <h1>LOGIN</h1>
+            <p>Click <a href="/">here</a> to go back</p>
+            {{ form.csrf_token }}
+        </hgroup>
+    </header>
+    <main class="container">
+        <article>
+            <form action="login/submit", method="post">
+                {{ form.username.label }}
+                {{ form.username }}
+        
+                {{ form.password.label }}
+                {{ form.password }}
+        
+                {{ form.submit }}
+            </form>
+        </article>
+    </main>
 </body>
 </html>
