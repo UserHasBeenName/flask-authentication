@@ -1,4 +1,4 @@
 *.db
 *.env
 __pycache__
-pico_main
+pico-main
