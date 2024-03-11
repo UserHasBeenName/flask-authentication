@@ -20,7 +20,18 @@
 			<p>Please log in below</p>
 		</hgroup>
 	</header>
+	<hr>
 	<main class="container">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			<p id="errors">
+				{% for message in messages %}
+					{{message}}
+				{% endfor %}
+			</p>
+		{% endif %}
+		{% endwith %}
+		</div> 
 		<nav>
 			<div class="grid">
 				<article>

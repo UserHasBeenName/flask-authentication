@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request, make_response
+from flask import render_template, Blueprint, request, make_response, flash
 from blueprints.forms import SignupForm, LoginForm
 from database.database import open_db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -49,6 +49,10 @@ def signup_submit():
 
             cu.execute("INSERT INTO users(username, password) VALUES($1, $2)", (form.username.data.lower(), generate_password_hash(form.password.data)))
             db.commit()
+            flash("Successfully signed in!")
+        else:
+            flash("Somebody with this name already exists.")
+            return render_template("signup.html", form=SignupForm())
 
 
     return render_template("index.html")

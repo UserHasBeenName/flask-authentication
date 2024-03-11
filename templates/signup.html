@@ -19,7 +19,19 @@
             {{ form.csrf_token }}
         </hgroup>
     </header>
+    <hr>
     <main class="container">
+        {% with messages = get_flashed_messages() %}
+		{% if messages %}
+            <article>
+                <p id="errors">
+                    {% for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                </p>
+            </article>
+		{% endif %}
+		{% endwith %}
         <article>
             <form action="signup/submit", method="post">
                 {{ form.csrf_token }}
