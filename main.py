@@ -13,7 +13,7 @@ def favicon():
 # Build the schema if it does not already exist
 def build_schema():
     with open("database/schema.sql", "r") as file, app.app_context():
-        open_db().executescript(file.read())
+        open_db().cursor().executescript(file.read())
 
 build_schema()
 
