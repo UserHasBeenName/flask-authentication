@@ -1,4 +1,4 @@
-from flask import render_template, redirect, Blueprint, make_response, flash, request, session
+from flask import render_template, redirect, Blueprint, flash, request, session
 from blueprints.forms import SignupForm, LoginForm
 from database.database import open_db, new_salt, new_uid
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -39,7 +39,8 @@ def login_submit():
 
     try:
         user = cu.fetchone()
-        if user and check_password_hash(user[1], form.password.data):
+        print(user)
+        if user and check_password_hash(user[1], (form.password.data + user[2])):
             flash(f"Successfully logged in as {user[0]}")
             return render_template("index.html")
         else:
@@ -47,7 +48,7 @@ def login_submit():
             return render_template("login.html", form = LoginForm())
     except IndexError:
         flash("Your username or password is incorrect.")
-        return render_template("login.html", form = LoginForm())
+        return redirect("/login", form=LoginForm())
 
 @auth_blueprint.route("/signup/submit", methods=["GET", "POST"])
 def signup_submit():
@@ -65,7 +66,6 @@ def signup_submit():
         else:
             flash("Somebody with this name already exists.")
             return redirect("/signup", form=SignupForm())
-            # return render_template("signup.html", form=SignupForm())
 
 
     return render_template("index.html")
