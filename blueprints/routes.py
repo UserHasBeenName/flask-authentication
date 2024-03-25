@@ -1,9 +1,7 @@
-from flask import render_template, Blueprint, request, make_response, flash
+from flask import render_template, redirect, Blueprint, make_response, flash, request, session
 from blueprints.forms import SignupForm, LoginForm
-from database.database import open_db
+from database.database import open_db, new_salt, new_uid
 from werkzeug.security import generate_password_hash, check_password_hash
-
-# TODO: Session Cookies! In Server!
 
 # Initialise the routes blueprint
 main_blueprint = Blueprint("main_blueprint", __name__)
@@ -60,14 +58,14 @@ def signup_submit():
         cu = db.cursor()
         cu.execute("SELECT * FROM users WHERE username = $1", (form.username.data.lower(),))
         if not cu.fetchone():
-            resp = make_response
-
-            cu.execute("INSERT INTO users(username, password) VALUES($1, $2)", (form.username.data.lower(), generate_password_hash(form.password.data)))
+            salt = new_salt()
+            cu.execute("INSERT INTO users(username, password, salt, userid) VALUES($1, $2, $3, $4)", (form.username.data.lower(), generate_password_hash(form.password.data + salt), salt, new_uid()))
             db.commit()
             flash("Successfully signed in!")
         else:
             flash("Somebody with this name already exists.")
-            return render_template("signup.html", form=SignupForm())
+            return redirect("/signup", form=SignupForm())
+            # return render_template("signup.html", form=SignupForm())
 
 
     return render_template("index.html")
