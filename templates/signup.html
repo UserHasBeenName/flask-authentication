@@ -33,7 +33,7 @@
 		{% endif %}
 		{% endwith %}
         <article>
-            <form action="signup/submit", method="post">
+            <form action="/signup/submit", method="post">
                 {{ form.csrf_token }}
                 {{ form.username.label }}
                 {{ form.username }}

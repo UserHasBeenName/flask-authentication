@@ -14,13 +14,30 @@
 	/>
 </head>
 <body>
+	<!-- navbar -->
 	<header class="container">
-		<hgroup>
-			<h1>INDEX</h1>
-			<p>Please log in below</p>
-		</hgroup>
+		<nav>
+			<ul>
+				<hgroup>
+					<h1>INDEX</h1>
+					<p>Please log in below</p>
+				</hgroup>
+			</ul>
+			{% if session['username'] %}
+			<ul>
+				<li><a href="/{{session['username']}}">{{session['username'].capitalize()}}</a></li>
+				<li><a href="/logout">logout</a></li>
+			</ul>
+			{% else %}
+			<ul>
+				<li><a href="/signup">Sign up</a></li>
+				<li><a href="/login">Log In</a></li>
+			</ul>
+			{% endif %}
+		</nav>
 	</header>
 	<hr>
+	<!-- main page -->
 	<main class="container">
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
@@ -32,15 +49,6 @@
 		{% endif %}
 		{% endwith %}
 		<nav>
-			<div class="grid">
-				<article>
-					<ul>
-						<li><a href="/signup">Sign up</a></li>
-						<li><a href="/login">Log In</a></li>
-					</ul>
-				</article>
-			</div>
-		</nav>
 	</main>
 </body>
 </html>
