@@ -60,12 +60,13 @@ def signup_submit():
         cu.execute("SELECT * FROM users WHERE username = $1", (form.username.data.lower(),))
         if not cu.fetchone():
             salt = new_salt()
-            cu.execute("INSERT INTO users(username, password, salt, userid) VALUES($1, $2, $3, $4)", (form.username.data.lower(), generate_password_hash(form.password.data + salt), salt, new_uid()))
+            userid = new_uid()
+            cu.execute("INSERT INTO users(username, password, salt, userid) VALUES($1, $2, $3, $4)", (form.username.data.lower(), generate_password_hash(form.password.data + salt), salt, userid))
+            cu.execute("CREATE TABLE IF NOT EXISTS $1 (items TEXT)", ("inv_"+userid,))
             db.commit()
             flash("Successfully signed in!")
         else:
             flash("Somebody with this name already exists.")
             return redirect("/signup", form=SignupForm())
-
 
     return render_template("index.html")
