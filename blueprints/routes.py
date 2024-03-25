@@ -65,11 +65,11 @@ def signup_submit():
 
             cu.execute(f"CREATE TABLE IF NOT EXISTS {"inv_"+scrub(userid)} (items TEXT)")
             db.commit()
+            session['username'] = form.username.data.lower()
             flash("Successfully signed in!")
         else:
             flash("Somebody with this name already exists.")
-            return redirect("/signup", form=SignupForm())
-    session['username'] = form.username.data.lower()
+            return redirect("/signup")
     return render_template("index.html")
 
 @auth_blueprint.route("/logout")
