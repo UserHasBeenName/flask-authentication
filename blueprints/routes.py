@@ -39,9 +39,9 @@ def login_submit():
 
     try:
         user = cu.fetchone()
-        print(user)
         if user and check_password_hash(user[1], (form.password.data + user[2])):
             flash(f"Successfully logged in as {user[0]}")
+            session['username'] = form.username.data.lower()
             return render_template("index.html")
         else:
             flash("Your username or password is incorrect.")
@@ -69,5 +69,14 @@ def signup_submit():
         else:
             flash("Somebody with this name already exists.")
             return redirect("/signup", form=SignupForm())
-
+    session['username'] = form.username.data.lower()
     return render_template("index.html")
+
+@auth_blueprint.route("/logout")
+def logout():
+    try:
+        session.pop("username")
+        flash("Successfully signed out")
+    except KeyError:
+        flash("You are already signed out!")
+    return redirect("/")
