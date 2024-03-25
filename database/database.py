@@ -10,3 +10,5 @@ def new_salt():
     return ''.join(choice(ALPHABET) for i in range(16))
 def new_uid():
     return 'uid_'+''.join(choice(ALPHABET) for i in range(7))
+def scrub(table_name: str) -> str:
+    return ''.join(chr for chr in table_name if chr.isalnum())

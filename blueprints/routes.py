@@ -1,6 +1,6 @@
 from flask import render_template, redirect, Blueprint, flash, request, session
 from blueprints.forms import SignupForm, LoginForm
-from database.database import open_db, new_salt, new_uid
+from database.database import open_db, new_salt, new_uid, scrub
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Initialise the routes blueprint
@@ -62,7 +62,8 @@ def signup_submit():
             salt = new_salt()
             userid = new_uid()
             cu.execute("INSERT INTO users(username, password, salt, userid) VALUES($1, $2, $3, $4)", (form.username.data.lower(), generate_password_hash(form.password.data + salt), salt, userid))
-            cu.execute("CREATE TABLE IF NOT EXISTS $1 (items TEXT)", ("inv_"+userid,))
+
+            cu.execute(f"CREATE TABLE IF NOT EXISTS {"inv_"+scrub(userid)} (items TEXT)")
             db.commit()
             flash("Successfully signed in!")
         else:
